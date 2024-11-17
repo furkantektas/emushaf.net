@@ -1,0 +1,45 @@
+{
+    "name": "eMushaf - Kuran Oku",
+    "short_name": "eMushaf",
+    "description": "Kuran-ı Kerim'i okuyun",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#fdedb9",
+    "icons": [
+        {
+            "src": "/web-app-manifest-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "maskable"
+        },
+        {
+            "src": "/web-app-manifest-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
+        }
+    ],
+    "theme_color": "#fdedb9",
+    "categories": [
+        "education",
+        "books",
+        "reference"
+    ],
+    "orientation": "portrait",
+    "lang": "tr",
+    "shortcuts": [
+        {
+            "name": "Kuran-ı Kerim",
+            "short_name": "Kuran",
+            "description": "Kuran-ı Kerim'i okuyun",
+            "url": "/",
+            "icons": [
+                {
+                    "src": "/favicon.ico",
+                    "sizes": "any",
+                    "type": "image/x-icon"
+                }
+            ]
+        }
+    ]
+}

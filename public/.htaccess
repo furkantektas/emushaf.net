@@ -1,0 +1,15 @@
+# Disable directory indexes and MultiViews
+Options -Indexes -MultiViews
+
+# Prevent mod_dir appending a slash to directory requests
+DirectorySlash Off
+
+RewriteEngine On
+
+# Rewrite /foo to /foo.html if it exists
+RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI}.html -f
+RewriteRule !\.\w{2,4}$ %{REQUEST_URI}.html [L]
+
+# Otherwise, rewrite /foo to /foo/index.html if it exists
+RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI}/index.html -f
+RewriteRule !\.\w{2,4}$ %{REQUEST_URI}/index.html [L]

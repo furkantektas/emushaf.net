@@ -1,0 +1,112 @@
+service: emushafnet
+
+image: lrajhhbgjtvv/emushafnet
+
+servers:
+  web:
+    - ${DEPLOY_HOST}
+proxy:
+  hosts:
+    - emushaf.net
+    - www.emushaf.net
+  ssl: true
+  healthcheck:
+    path: "/"
+registry:
+  server: lhr.ocir.io
+  username:
+    - KAMAL_REGISTRY_USERNAME
+  password:
+    - KAMAL_REGISTRY_PASSWORD
+builder:
+  arch: arm64
+  local: true
+  context: .
+aliases:
+  apps: server exec docker exec kamal-proxy kamal-proxy list
+ssh:
+  user: kamal
+service: emushafnet
+
+image: lrajhhbgjtvv/emushafnet
+
+servers:
+  web:
+    -
+proxy:
+  hosts:
+    - emushaf.net
+    - www.emushaf.net
+  ssl: true
+  healthcheck:
+    path: "/"
+registry:
+  server: lhr.ocir.io
+  username:
+    - KAMAL_REGISTRY_USERNAME
+  password:
+    - KAMAL_REGISTRY_PASSWORD
+builder:
+  arch: arm64
+  local: true
+  context: .
+aliases:
+  apps: server exec docker exec kamal-proxy kamal-proxy list
+ssh:
+  user: kamal
+service: emushafnet
+
+image: lrajhhbgjtvv/emushafnet
+
+servers:
+  web:
+    - 
+proxy:
+  hosts:
+    - emushaf.net
+    - www.emushaf.net
+  ssl: true
+  healthcheck:
+    path: "/"
+registry:
+  server: lhr.ocir.io
+  username:
+    - KAMAL_REGISTRY_USERNAME
+  password:
+    - KAMAL_REGISTRY_PASSWORD
+builder:
+  arch: arm64
+  local: true
+  context: .
+aliases:
+  apps: server exec docker exec kamal-proxy kamal-proxy list
+ssh:
+  user: kamal
+service: emushafnet
+
+image: lrajhhbgjtvv/emushafnet
+
+servers:
+  web:
+    -
+proxy:
+  hosts:
+    - emushaf.net
+    - www.emushaf.net
+  ssl: true
+  healthcheck:
+    path: "/"
+registry:
+  server: lhr.ocir.io
+  username:
+    - KAMAL_REGISTRY_USERNAME
+  password:
+    - KAMAL_REGISTRY_PASSWORD
+builder:
+  arch: arm64
+  local: true
+  context: .
+aliases:
+  apps: server exec docker exec kamal-proxy kamal-proxy list
+ssh:
+  user: kamal
