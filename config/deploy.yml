@@ -4,7 +4,7 @@ image: lrajhhbgjtvv/emushafnet
 
 servers:
   web:
-    - emushaf.net
+    - <%= ENV['DEPLOY_HOST'] %>
 proxy:
   hosts:
     - emushaf.net
