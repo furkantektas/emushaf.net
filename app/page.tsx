@@ -108,7 +108,7 @@ export default function Home() {
 
         <footer className="pb-4 text-center z-10">
           <p className="text-sm text-muted-foreground">
-            Muhabbetle yapılmıştır. <a href="https://furkantektas.com" className="text-blue-500" target="_blank"
+            Muhabbetle yapılmıştır. <a href="https://furkantektas.com" className="text-blue-600 border-b border-blue-600" target="_blank"
             >(iletişim)</a></p>
           <p className="text-sm text-muted-foreground">
             Kur'an-ı Kerim sayfaları Ahmed Hüsrev Hatlı Tevafuklu Kur'an-ı Kerim'den, Hayrat Neşriyat yetkililerinin izniyle alınmıştır. <br />Ticari amaç güdülerek kullanılması, çoğaltılması ve dağıtılması yasaktır.

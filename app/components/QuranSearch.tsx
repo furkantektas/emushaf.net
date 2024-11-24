@@ -115,31 +115,33 @@ export default function QuranSearch() {
                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
                 </div>
             </form>
-            {results.length > 0 && (
-                <div id="search-results" className="mt-2 bg-white dark:bg-gray-800 rounded-md shadow-lg p-2" role="listbox">
-                    {results.map((result, index) => (
-                        <button
-                            key={`${result.type}-${result.value}`}
-                            // ref={el => resultRefs.current[index] = el}
-                            onClick={() => router.push(result.url)}
-                            onKeyDown={(e) => {
-                                if (e.key === 'Tab' && index === results.length - 1) {
-                                    setResults([]);
-                                    setSelectedIndex(-1);
-                                }
-                            }}
-                            className={`w-full text-left px-2 py-1 rounded ${index === selectedIndex ? 'bg-gray-100 dark:bg-gray-700' : 'hover:bg-gray-100 dark:hover:bg-gray-700'}`}
-                            role="option"
-                            aria-selected={index === selectedIndex}
-                            id={`result-${index}`}
-                            aria-label={`${result.type === 'surah' ? 'Sure' : result.type === 'juz' ? 'Cüz' : 'Sayfa'}: ${result.value}`}
-                        >
-                            {result.type === 'surah' && `${result.value}`}
-                            {result.type === 'juz' && `${result.value}. Cüz`}
-                        </button>
-                    ))}
-                </div>
-            )}
+            <div id="search-results" className={`mt-2 bg-white dark:bg-gray-800 rounded-md shadow-lg p-2 ${results.length > 0 ? 'block' : 'hidden'}`} role="listbox" aria-label="Arama sonuçları" >
+                {results.length > 0 && (
+                    <div>
+                        {results.map((result, index) => (
+                            <button
+                                key={`${result.type}-${result.value}`}
+                                // ref={el => resultRefs.current[index] = el}
+                                onClick={() => router.push(result.url)}
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Tab' && index === results.length - 1) {
+                                        setResults([]);
+                                        setSelectedIndex(-1);
+                                    }
+                                }}
+                                className={`w-full text-left px-2 py-1 rounded ${index === selectedIndex ? 'bg-gray-100 dark:bg-gray-700' : 'hover:bg-gray-100 dark:hover:bg-gray-700'}`}
+                                role="option"
+                                aria-selected={index === selectedIndex}
+                                id={`result-${index}`}
+                                aria-label={`${result.type === 'surah' ? 'Sure' : result.type === 'juz' ? 'Cüz' : 'Sayfa'}: ${result.value}`}
+                            >
+                                {result.type === 'surah' && `${result.value}`}
+                                {result.type === 'juz' && `${result.value}. Cüz`}
+                            </button>
+                        ))}
+                    </div>
+                )}
+            </div >
         </>
     );
 }

@@ -1,4 +1,5 @@
 {
+    "id": "emushaf",
     "name": "eMushaf - Kuran Oku",
     "short_name": "eMushaf",
     "description": "Kuran-ı Kerim'i okuyun",
@@ -17,6 +18,12 @@
             "sizes": "512x512",
             "type": "image/png",
             "purpose": "maskable"
+        },
+        {
+            "src": "/web-app-manifest-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any"
         }
     ],
     "theme_color": "#fdedb9",
@@ -38,8 +45,28 @@
                     "src": "/favicon.ico",
                     "sizes": "any",
                     "type": "image/x-icon"
+                },
+                {
+                    "src": "/web-app-manifest-512x512.png",
+                    "sizes": "512x512",
+                    "type": "image/png",
+                    "purpose": "any"
                 }
             ]
+        }
+    ],
+    "screenshots": [
+        {
+            "src": "/emushaf-desktop-screenshot.png",
+            "sizes": "2940x1696",
+            "type": "image/png",
+            "form_factor": "wide"
+        },
+        {
+            "src": "/emushaf-mobile-screenshot.png",
+            "sizes": "1290x2796",
+            "type": "image/png",
+            "form_factor": "narrow"
         }
     ]
 }
