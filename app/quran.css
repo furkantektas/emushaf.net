@@ -1,5 +1,5 @@
 .dark {
     .sayfa {
-        filter: invert(1) hue-rotate(-120deg) brightness(.8) contrast(1.9) saturate(0.7);
+        filter: invert(1) hue-rotate(-140deg) contrast(0.7);
     }
 }
