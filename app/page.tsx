@@ -34,7 +34,7 @@ export default function Home() {
 
   return (
     <div className={`min-h-screen flex flex-col`}>
-      <div className="flex-grow text-foreground">
+      <div className="grow text-foreground">
 
 
         <main className="container mx-auto px-4 pt-8 lg:pt-24 z-10">
@@ -155,7 +155,7 @@ export default function Home() {
                   <li key={index}>
                     <Link
                       href={surah.href}
-                      className="block px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="block px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors duration-150 ease-in-out focus:outline-hidden focus:ring-2 focus:ring-blue-500"
                     >
                       {surah.name}
                     </Link>
@@ -167,13 +167,13 @@ export default function Home() {
           <div className="flex space-x-4">
             <Link
               href="/sure"
-              className="flex-1 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md text-center font-medium transition-colors duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-300"
+              className="flex-1 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md text-center font-medium transition-colors duration-150 ease-in-out focus:outline-hidden focus:ring-2 focus:ring-blue-300"
             >
               Tüm Sureleri Görüntüle
             </Link>
             <Link
               href="/cuz"
-              className="flex-1 px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-md text-center font-medium transition-colors duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-green-300"
+              className="flex-1 px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-md text-center font-medium transition-colors duration-150 ease-in-out focus:outline-hidden focus:ring-2 focus:ring-green-300"
             >
               Cüzleri Görüntüle
             </Link>

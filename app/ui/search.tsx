@@ -24,7 +24,7 @@ export function Search({ placeholder }: { placeholder: string }) {
 
     return (
         <div>
-            <div className="relative flex flex-1 flex-shrink-0">
+            <div className="relative flex flex-1 shrink-0">
                 <label htmlFor="search" className="sr-only">
                     Search
                 </label>
@@ -36,7 +36,7 @@ export function Search({ placeholder }: { placeholder: string }) {
                         handleSearch(e.target.value);
                     }}
                 />
-                <MagnifyingGlassIcon className="absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-slate-500 peer-focus:text-gray-900 peer-focus:dark:text-gray-100" />
+                <MagnifyingGlassIcon className="absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-slate-500 peer-focus:text-gray-900 dark:peer-focus:text-gray-100" />
             </div>
         </div>
     );

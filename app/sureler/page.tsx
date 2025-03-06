@@ -5,7 +5,7 @@ import BackButton from "@/app/ui/back-button";
 
 export default function SurahsList() {
     return (
-        <div className="flex-grow p-0 md:overflow-y-auto mx-auto justify-center">
+        <div className="grow p-0 md:overflow-y-auto mx-auto justify-center">
             <div className="w-full lg:max-w-5xl mx-auto p-4">
                 <div className="flex items-center mb-4">
                     <BackButton />

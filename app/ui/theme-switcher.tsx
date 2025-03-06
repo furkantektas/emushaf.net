@@ -17,8 +17,8 @@ const ThemeSwitcher = () => {
         return null
     }
 
-    const className = 'text-current peer-focus:text-gray-900 peer-focus:dark:text-gray-100 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2';
-    const iconContainerStyle = 'relative text-current peer-focus:text-gray-900 peer-focus:dark:text-gray-100 rounded-full p-4 bg-gray-900 text-gray-100 dark:bg-gray-800 dark:text-gray-100 stroke-2';
+    const className = 'text-current peer-focus:text-gray-900 dark:peer-focus:text-gray-100 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2';
+    const iconContainerStyle = 'relative text-current peer-focus:text-gray-900 dark:peer-focus:text-gray-100 rounded-full p-4 bg-gray-900 text-gray-100 dark:bg-gray-800 dark:text-gray-100 stroke-2';
 
     const selectTheme = (selectedTheme: string) => {
         setTheme(selectedTheme);
