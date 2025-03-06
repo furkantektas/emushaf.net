@@ -21,5 +21,5 @@ export default function BackButton({ fallback, className, icon }: { fallback?: s
         icon = <ChevronLeft size={24} />;
     }
 
-    return <button className={className} onClick={handleBack}><div className="text-current peer-focus:text-gray-50 dark:peer-focus:text-gray-950">{icon}</div></button>;
+    return <button className={className} onClick={handleBack}><div className="text-current peer-focus:text-gray-50 dark:peer-focus:text-gray-950 cursor-pointer">{icon}</div></button>;
 }

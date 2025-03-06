@@ -11,5 +11,5 @@ export default function PageFitButton() {
     const toggleFitTo = () => {
         updatePreferences({ fitTo: preferences.fitTo === 'width' ? 'height' : 'width' });
     };
-    return <div><button className="portrait:hidden" onClick={toggleFitTo}>{icon}</button></div>
+    return <div><button className="portrait:hidden cursor-pointer" onClick={toggleFitTo}>{icon}</button></div>
 }
