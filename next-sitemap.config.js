@@ -8,7 +8,7 @@ module.exports = {
     exclude: [
         '/up',
         '/manifest.webmanifest',
-        '/settings/',
+        '/settings',
     ],
     sitemapSize: 10000
 }
