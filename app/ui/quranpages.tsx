@@ -30,7 +30,12 @@ export default function QuranPages({
 
     const pages: ReactElement[] = [];
     for (let num = start; num <= end; num++) {
-        pages.push(<SwiperSlide key={`sayfa-${num}`}><QuranPage number={num} /></SwiperSlide>);
+        pages.push(
+            <SwiperSlide key={`sayfa-${num}`}>
+                <QuranPage number={num} isPriority={num === start} />
+                <div className="swiper-lazy-preloader"></div>
+            </SwiperSlide>
+        );
     }
 
     return (
@@ -44,14 +49,15 @@ export default function QuranPages({
                 grabCursor={true}
                 slidesPerGroup={1}
                 navigation
-                cssMode={true}
+                cssMode={false}
                 spaceBetween={50}
                 pagination={{ clickable: true }}
                 keyboard={{ enabled: true }}
                 modules={[Pagination, Navigation, Keyboard]}
                 className="landscape:h-screen"
-                freeMode={{ enabled: true, sticky: true, momentum: false }}
-                threshold={15}
+                speed={300}
+                freeMode={false}
+                lazy={{ enabled: true, loadPrevNext: true, loadPrevNextAmount: 1 }}
                 onSlideChange={(swiper: SwiperClass) => {
                     const currentPageNum = swiper.realIndex + start;
                     setPageNum(currentPageNum);
