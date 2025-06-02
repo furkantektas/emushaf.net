@@ -44,21 +44,19 @@ export default function QuranPages({
                 grabCursor={true}
                 slidesPerGroup={1}
                 navigation
-                cssMode={true}
+                cssMode={false}
                 spaceBetween={50}
                 pagination={{ clickable: true }}
                 keyboard={{ enabled: true }}
                 modules={[Pagination, Navigation, Keyboard]}
                 className="landscape:h-screen"
+                speed={300}
+                freeMode={false}
                 onSlideChange={(swiper: SwiperClass) => {
                     const currentPageNum = swiper.realIndex + start;
                     setPageNum(currentPageNum);
                     onPageChange?.(currentPageNum);
                 }}
-                threshold={15}
-                followFinger={false}
-                longSwipesRatio={0.7}
-                shortSwipes={false}
             >
                 {pages}
             </Swiper >
