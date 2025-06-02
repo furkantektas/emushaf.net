@@ -22,7 +22,7 @@ export default function QuranPages({
     header?: React.ReactNode,
     onPageChange?: (page: number) => void
 }) {
-    const [swiperRef, setSwiperRef] = useState(null);
+    const swiperInstanceRef = useRef<SwiperClass | null>(null);
     const [pageNum, setPageNum] = useState<number>(start);
 
 
@@ -39,7 +39,7 @@ export default function QuranPages({
             {header}
             <Swiper
                 dir="rtl"
-                ref={swiperRef}
+                onSwiper={(swiper) => { swiperInstanceRef.current = swiper; }}
                 slidesPerView={1}
                 grabCursor={true}
                 slidesPerGroup={1}
@@ -50,16 +50,20 @@ export default function QuranPages({
                 keyboard={{ enabled: true }}
                 modules={[Pagination, Navigation, Keyboard]}
                 className="landscape:h-screen"
-                longSwipesRatio={0.1}
-                shortSwipes={true}
-                resistanceRatio={0}
-                freeMode={false}
-                watchSlidesProgress={true}
-                touchReleaseOnEdges={true}
-                onSlideChange={(swiper: SwiperClass) => {
-                    const currentPageNum = swiper.realIndex + start;
+                onSlideChange={(swiperSlideData: SwiperClass) => {
+                    const currentPageNum = swiperSlideData.realIndex + start;
                     setPageNum(currentPageNum);
                     onPageChange?.(currentPageNum);
+
+                    const swiper = swiperInstanceRef.current;
+                    if (swiper) {
+                        swiper.allowSlideNext = false;
+                        swiper.allowSlidePrev = false;
+                        setTimeout(() => {
+                            swiper.allowSlideNext = true;
+                            swiper.allowSlidePrev = true;
+                        }, 300);
+                    }
                 }}
             >
                 {pages}
