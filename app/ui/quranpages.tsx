@@ -50,9 +50,7 @@ export default function QuranPages({
                 keyboard={{ enabled: true }}
                 modules={[Pagination, Navigation, Keyboard]}
                 className="landscape:h-screen"
-                freeMode={true}
-                freeModeSticky={true}
-                freeModeMomentum={false}
+                freeMode={{ enabled: true, sticky: true, momentum: false }}
                 threshold={15}
                 onSlideChange={(swiper: SwiperClass) => {
                     const currentPageNum = swiper.realIndex + start;
