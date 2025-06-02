@@ -50,33 +50,15 @@ export default function QuranPages({
                 keyboard={{ enabled: true }}
                 modules={[Pagination, Navigation, Keyboard]}
                 className="landscape:h-screen"
-                onSlideChange={(swiperData: SwiperClass) => {
-                    const newRealIndex = swiperData.realIndex;
-                    const newPotentialPageNum = newRealIndex + start;
-                    let targetPageNum = newPotentialPageNum;
-
-                    const swiper = swiperInstanceRef.current;
-                    if (swiper) {
-                        if (newPotentialPageNum > pageNum + 1) {
-                            targetPageNum = pageNum + 1;
-                            swiper.slideTo(targetPageNum - start, 0);
-                        } else if (newPotentialPageNum < pageNum - 1) {
-                            targetPageNum = pageNum - 1;
-                            swiper.slideTo(targetPageNum - start, 0);
-                        }
-
-                        swiper.allowSlideNext = false;
-                        swiper.allowSlidePrev = false;
-                        setTimeout(() => {
-                            if (swiperInstanceRef.current) {
-                                swiperInstanceRef.current.allowSlideNext = true;
-                                swiperInstanceRef.current.allowSlidePrev = true;
-                            }
-                        }, 300);
-                    }
-                    setPageNum(targetPageNum);
-                    onPageChange?.(targetPageNum);
+                onSlideChange={(swiper: SwiperClass) => {
+                    const currentPageNum = swiper.realIndex + start;
+                    setPageNum(currentPageNum);
+                    onPageChange?.(currentPageNum);
                 }}
+                threshold={15}
+                followFinger={false}
+                longSwipesRatio={0.7}
+                shortSwipes={false}
             >
                 {pages}
             </Swiper >
