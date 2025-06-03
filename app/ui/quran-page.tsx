@@ -3,7 +3,7 @@ import React from "react";
 import '@/app/quran.css'
 import { usePreferences } from "../context/preferences";
 
-export default function QuranPage({ number }: { number: number }) {
+export default function QuranPage({ number, isPriority }: { number: number, isPriority: boolean }) {
     const imageUrl = `/sayfa/${number}.png`
     const { preferences } = usePreferences();
 
@@ -15,7 +15,7 @@ export default function QuranPage({ number }: { number: number }) {
         className={"object-contain sayfa mx-auto z-100 portrait:h-screen portrait:w-auto " + (preferences.fitTo !== 'width' ? "landscape:h-screen landscape:w-auto" : "landscape:h-auto landscape:w-screen")}
         key={`sayfa-${number}`}
         onError={(e) => { }}
-        priority={true}
+        priority={isPriority}
     />
 
 }

@@ -22,7 +22,7 @@ export default function QuranPages({
     header?: React.ReactNode,
     onPageChange?: (page: number) => void
 }) {
-    const [swiperRef, setSwiperRef] = useState(null);
+    const swiperInstanceRef = useRef<SwiperClass | null>(null);
     const [pageNum, setPageNum] = useState<number>(start);
 
 
@@ -30,7 +30,12 @@ export default function QuranPages({
 
     const pages: ReactElement[] = [];
     for (let num = start; num <= end; num++) {
-        pages.push(<SwiperSlide key={`sayfa-${num}`}><QuranPage number={num} /></SwiperSlide>);
+        pages.push(
+            <SwiperSlide key={`sayfa-${num}`}>
+                <QuranPage number={num} isPriority={num === start} />
+                <div className="swiper-lazy-preloader"></div>
+            </SwiperSlide>
+        );
     }
 
     return (
@@ -39,17 +44,20 @@ export default function QuranPages({
             {header}
             <Swiper
                 dir="rtl"
-                ref={swiperRef}
+                onSwiper={(swiper) => { swiperInstanceRef.current = swiper; }}
                 slidesPerView={1}
                 grabCursor={true}
                 slidesPerGroup={1}
                 navigation
-                cssMode={true}
+                cssMode={false}
                 spaceBetween={50}
                 pagination={{ clickable: true }}
                 keyboard={{ enabled: true }}
                 modules={[Pagination, Navigation, Keyboard]}
                 className="landscape:h-screen"
+                speed={300}
+                freeMode={false}
+                lazy={{ enabled: true, loadPrevNext: true, loadPrevNextAmount: 3 }}
                 onSlideChange={(swiper: SwiperClass) => {
                     const currentPageNum = swiper.realIndex + start;
                     setPageNum(currentPageNum);
