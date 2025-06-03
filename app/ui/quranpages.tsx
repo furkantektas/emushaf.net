@@ -57,7 +57,6 @@ export default function QuranPages({
                 className="landscape:h-screen"
                 speed={300}
                 freeMode={false}
-                lazy={{ enabled: true, loadPrevNext: true, loadPrevNextAmount: 3 }}
                 onSlideChange={(swiper: SwiperClass) => {
                     const currentPageNum = swiper.realIndex + start;
                     setPageNum(currentPageNum);
