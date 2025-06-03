@@ -3,3 +3,12 @@
         filter: invert(1) hue-rotate(-140deg) contrast(0.7);
     }
 }
+
+:root {
+    --swiper-preloader-color: #5C4033; /* Dark Brown */
+}
+
+.swiper-lazy-preloader {
+    border-color: #5C4033; /* Sets all sides */
+    border-top-color: transparent; /* Keeps the spinner effect */
+}
