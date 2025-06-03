@@ -6,7 +6,7 @@ import Header, { CuzHeader, SurahHeader } from "@/app/ui/header";
 import { Swiper, SwiperClass, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/keyboard';
-import { Pagination, Navigation, Keyboard } from 'swiper/modules';
+import { Pagination, Navigation, Keyboard, Lazy } from 'swiper/modules';
 import { Surah } from "@/interfaces/surah";
 import LastVisitUpdater from "../components/lastvisit";
 import { Cuz } from "@/interfaces/cuz";
@@ -53,7 +53,7 @@ export default function QuranPages({
                 spaceBetween={50}
                 pagination={{ clickable: true }}
                 keyboard={{ enabled: true }}
-                modules={[Pagination, Navigation, Keyboard]}
+                modules={[Pagination, Navigation, Keyboard, Lazy]}
                 className="landscape:h-screen"
                 speed={300}
                 freeMode={false}
