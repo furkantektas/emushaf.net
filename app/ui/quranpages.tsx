@@ -30,9 +30,12 @@ export default function QuranPages({
 
     const pages: ReactElement[] = [];
     for (let num = start; num <= end; num++) {
+        // Determine if the page should be loaded with priority
+        // Preload current, one previous, and two next pages
+        const shouldBePriority = num >= pageNum - 1 && num <= pageNum + 2;
         pages.push(
             <SwiperSlide key={`sayfa-${num}`}>
-                <QuranPage number={num} isPriority={num === start} />
+                <QuranPage number={num} isPriority={shouldBePriority} />
                 <div className="swiper-lazy-preloader"></div>
             </SwiperSlide>
         );
