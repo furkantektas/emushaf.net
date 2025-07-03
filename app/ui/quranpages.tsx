@@ -1,9 +1,10 @@
 "use client";
 
-import React, { ReactElement, useRef, useState } from "react";
+import React, { ReactElement, useEffect, useRef, useState } from "react";
 import QuranPage from "./quran-page";
 import Header, { CuzHeader, SurahHeader } from "@/app/ui/header";
 import { Swiper, SwiperClass, SwiperSlide } from 'swiper/react';
+import { usePreferences } from "../context/preferences";
 import 'swiper/css';
 import 'swiper/css/keyboard';
 import { Pagination, Navigation, Keyboard } from 'swiper/modules';
@@ -24,9 +25,37 @@ export default function QuranPages({
 }) {
     const swiperInstanceRef = useRef<SwiperClass | null>(null);
     const [pageNum, setPageNum] = useState<number>(start);
+    const { preferences } = usePreferences(); // Get preferences
 
+    // Determine if landscape width fit mode is active
+    // TODO: Add actual orientation detection if possible, for now, treat fitTo:'width' as landscape context
+    const isLandscapeWidthFit = preferences.fitTo === 'width';
 
     header = header || <Header title={`Sayfa ${start} - ${end}`} pageNum={pageNum} />
+
+    useEffect(() => {
+        const handleKeyDown = (event: KeyboardEvent) => {
+            if (isLandscapeWidthFit && swiperInstanceRef.current) {
+                const activeSlide = swiperInstanceRef.current.slides[swiperInstanceRef.current.activeIndex];
+                if (!activeSlide) return;
+
+                let scrollAmount = 50; // Amount to scroll by, can be adjusted
+
+                if (event.key === "ArrowUp") {
+                    event.preventDefault();
+                    activeSlide.scrollTop -= scrollAmount;
+                } else if (event.key === "ArrowDown") {
+                    event.preventDefault();
+                    activeSlide.scrollTop += scrollAmount;
+                }
+            }
+        };
+
+        document.addEventListener('keydown', handleKeyDown);
+        return () => {
+            document.removeEventListener('keydown', handleKeyDown);
+        };
+    }, [isLandscapeWidthFit, pageNum]); // Rerun if mode changes or page (active slide) changes
 
     const pages: ReactElement[] = [];
     for (let num = start; num <= end; num++) {
@@ -57,7 +86,7 @@ export default function QuranPages({
                 pagination={{ clickable: true }}
                 keyboard={{ enabled: true }}
                 modules={[Pagination, Navigation, Keyboard]}
-                className="landscape:h-screen"
+                className={`landscape:h-screen ${isLandscapeWidthFit ? 'swiper-landscape-width-fit' : ''}`}
                 speed={300}
                 freeMode={false}
                 onSlideChange={(swiper: SwiperClass) => {
@@ -65,9 +94,9 @@ export default function QuranPages({
                     setPageNum(currentPageNum);
                     onPageChange?.(currentPageNum);
 
-                    // Scroll the active slide to the top
+                    // Scroll the active slide to the top smoothly
                     if (swiper.slides && swiper.slides[swiper.activeIndex]) {
-                        swiper.slides[swiper.activeIndex].scrollTop = 0;
+                        swiper.slides[swiper.activeIndex].scrollTo({ top: 0, behavior: 'smooth' });
                     }
                 }}
             >
