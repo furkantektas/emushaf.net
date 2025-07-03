@@ -64,6 +64,11 @@ export default function QuranPages({
                     const currentPageNum = swiper.realIndex + start;
                     setPageNum(currentPageNum);
                     onPageChange?.(currentPageNum);
+
+                    // Scroll the active slide to the top
+                    if (swiper.slides && swiper.slides[swiper.activeIndex]) {
+                        swiper.slides[swiper.activeIndex].scrollTop = 0;
+                    }
                 }}
             >
                 {pages}

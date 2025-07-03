@@ -7,12 +7,17 @@ export default function QuranPage({ number, isPriority }: { number: number, isPr
     const imageUrl = `/sayfa/${number}.png`
     const { preferences } = usePreferences();
 
+    const isLandscapeWidthFit = preferences.fitTo === 'width';
+    // TODO: Check actual orientation, not just assume landscape based on fitTo preference.
+    // For now, we assume that 'width' fit is only active/relevant in landscape.
+    const conditionalClasses = isLandscapeWidthFit ? "landscape:h-auto landscape:w-screen landscape-width-fit-scroll" : "landscape:h-screen landscape:w-auto";
+
     return <Image
         src={imageUrl}
         alt={`Sayfa ${number}`}
         width={500}
         height={820}
-        className={"object-contain sayfa mx-auto z-100 portrait:h-screen portrait:w-auto " + (preferences.fitTo !== 'width' ? "landscape:h-screen landscape:w-auto" : "landscape:h-auto landscape:w-screen")}
+        className={`object-contain sayfa mx-auto z-100 portrait:h-screen portrait:w-auto ${conditionalClasses}`}
         key={`sayfa-${number}`}
         onError={(e) => { }}
         priority={isPriority}

@@ -150,3 +150,7 @@
     @apply bg-background text-foreground;
   }
 }
+
+.landscape-width-fit-scroll {
+  overflow-y: auto !important;
+}
