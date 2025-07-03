@@ -150,3 +150,13 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Apply box-sizing to all swiper slides for consistent layout */
+.swiper-slide {
+  box-sizing: border-box;
+}
+
+/* Enable vertical scrolling for swiper slides in landscape width-fit mode */
+.swiper-landscape-width-fit .swiper-slide {
+  overflow-y: auto !important;
+}
