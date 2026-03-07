@@ -11,38 +11,33 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
-    "@radix-ui/react-slot": "^1.1.2",
+    "@radix-ui/react-slot": "^1.2.4",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "fuse.js": "^7.1.0",
-    "lucide-react": "^0.477.0",
-    "next": "16.1.5",
+    "lucide-react": "^0.577.0",
+    "next": "16.1.6",
     "next-sitemap": "^4.2.3",
-    "next-themes": "^0.4.4",
-    "react": "19.0.0",
-    "react-dom": "19.0.0",
-    "react-photoswipe-gallery": "^3.0.2",
+    "next-themes": "^0.4.6",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "react-photoswipe-gallery": "^4.0.0",
     "react-swipeable": "^7.0.2",
-    "shadcn": "2.4.0-canary.12",
+    "shadcn": "4.0.0",
     "swiper": "^12.1.2",
-    "tailwind-merge": "^3.0.2",
+    "tailwind-merge": "^3.5.0",
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.0.10",
-    "@types/node": "^22.13.9",
-    "@types/react": "npm:types-react@19.0.0-rc.1",
-    "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1",
-    "eslint": "^9.26.0",
-    "eslint-config-next": "15.2.1",
-    "postcss": "^8.5.3",
-    "tailwindcss": "^4.0.10",
-    "typescript": "^5.8.2"
-  },
-  "pnpm": {
-    "overrides": {
-      "@types/react": "npm:types-react@19.0.0-rc.1",
-      "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1"
-    }
+    "@eslint/eslintrc": "^3.3.5",
+    "@tailwindcss/postcss": "^4.2.1",
+    "@types/node": "^25.3.5",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "eslint": "^10.0.3",
+    "eslint-config-next": "16.1.6",
+    "postcss": "^8.5.8",
+    "tailwindcss": "^4.2.1",
+    "typescript": "^5.9.3"
   }
 }
