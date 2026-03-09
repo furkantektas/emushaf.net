@@ -58,14 +58,22 @@ export default function Header({ pageNum, left, title, right }: { pageNum: numbe
 
     useEffect(() => {
         const handleTap = (e: MouseEvent) => {
-            if (!(e.target as Element).closest('.header-container')) {
-                if (isVisible) {
-                    // If header is visible and user taps outside, hide it immediately
-                    setIsVisible(false);
-                    clearExistingTimeout();
+            const target = e.target as Element;
+            if (!target.closest('.header-container')) {
+                const isSwiperButton = target.closest('.swiper-button-next') || target.closest('.swiper-button-prev');
+
+                if (isSwiperButton) {
+                    // If swiper button is clicked, show header for 3 seconds (don't toggle)
+                    showHeader(3000);
                 } else {
-                    // If header is not visible, show it for 10 seconds
-                    showHeader(10000);
+                    if (isVisible) {
+                        // If header is visible and user taps outside, hide it immediately
+                        setIsVisible(false);
+                        clearExistingTimeout();
+                    } else {
+                        // If header is not visible, show it for 5 seconds
+                        showHeader(5000);
+                    }
                 }
             }
         };
