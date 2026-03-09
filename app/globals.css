@@ -113,7 +113,14 @@
     --radius: 0.5rem;
   }
 
+  :root {
+    --swiper-navigation-color: #5C4033;
+    --swiper-pagination-color: #5C4033;
+  }
+
   .dark {
+    --swiper-navigation-color: #fdedb9;
+    --swiper-pagination-color: #fdedb9;
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
     --card: 222.2 84% 4.9%;
@@ -159,4 +166,20 @@
 /* Enable vertical scrolling for swiper slides in landscape width-fit mode */
 .swiper-landscape-width-fit .swiper-slide {
   overflow-y: auto !important;
+}
+
+/* Hide navigation and pagination in landscape width-fit mode */
+.swiper-landscape-width-fit .swiper-button-next,
+.swiper-landscape-width-fit .swiper-button-prev,
+.swiper-landscape-width-fit .swiper-pagination {
+  display: none !important;
+}
+
+/* Hide navigation and pagination on portrait screens */
+@media (orientation: portrait) {
+  .swiper .swiper-button-next,
+  .swiper .swiper-button-prev,
+  .swiper .swiper-pagination {
+    display: none !important;
+  }
 }

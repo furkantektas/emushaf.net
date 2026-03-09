@@ -1,6 +1,6 @@
 // import { Cog6ToothIcon, ChevronLeftIcon } from '@heroicons/react/24/outline';
 
-import React, { ReactElement, ReactNode, useState, useEffect, useCallback } from "react";
+import React, { ReactElement, ReactNode, useState, useEffect, useCallback, useRef } from "react";
 import BackButton from "./back-button";
 import { Surah } from '@/interfaces/surah';
 import PageFitButton from './page-fit-button';
@@ -11,26 +11,36 @@ import { Cuz } from "@/interfaces/cuz";
 export default function Header({ pageNum, left, title, right }: { pageNum: number, left?: ReactElement, title?: ReactElement | string, right?: ReactElement }) {
     const [isVisible, setIsVisible] = useState(true);
     const [isHovering, setIsHovering] = useState(false);
+    const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+    const clearExistingTimeout = useCallback(() => {
+        if (timeoutRef.current) {
+            clearTimeout(timeoutRef.current);
+            timeoutRef.current = null;
+        }
+    }, []);
 
     const hideHeader = useCallback(() => {
         if (!isHovering) {
             setIsVisible(false);
+            clearExistingTimeout();
         }
-    }, [isHovering]);
+    }, [isHovering, clearExistingTimeout]);
 
     const showHeader = useCallback((duration: number) => {
         setIsVisible(true);
-        if (duration === 0) return;
-        const timer = setTimeout(hideHeader, duration);
-        return () => clearTimeout(timer);
-    }, [hideHeader]);
+        clearExistingTimeout();
+        if (duration > 0) {
+            timeoutRef.current = setTimeout(hideHeader, duration);
+        }
+    }, [hideHeader, clearExistingTimeout]);
 
 
     useEffect(() => {
         const handleMouseMove = (e: MouseEvent) => {
             if (e.clientY <= 100) {
                 showHeader(0);
-            } else if (e.clientY > 100 && !isHovering) {
+            } else if (e.clientY > 100 && !isHovering && !timeoutRef.current) {
                 hideHeader();
             }
         };
@@ -42,18 +52,28 @@ export default function Header({ pageNum, left, title, right }: { pageNum: numbe
 
     useEffect(() => {
         // Initial timer to hide the header after 2 seconds when component mounts
-        return showHeader(2000);
-    }, [showHeader]);
+        showHeader(2000);
+        return () => clearExistingTimeout();
+    }, [showHeader, clearExistingTimeout]);
 
     useEffect(() => {
         const handleTap = (e: MouseEvent) => {
-            if (!(e.target as Element).closest('.header-container')) {
-                if (isVisible) {
-                    // If header is visible and user taps outside, hide it immediately
-                    setIsVisible(false);
+            const target = e.target as Element;
+            if (!target.closest('.header-container')) {
+                const isSwiperButton = target.closest('.swiper-button-next') || target.closest('.swiper-button-prev');
+
+                if (isSwiperButton) {
+                    // If swiper button is clicked, show header for 3 seconds (don't toggle)
+                    showHeader(3000);
                 } else {
-                    // If header is not visible, show it for 10 seconds
-                    return showHeader(10000);
+                    if (isVisible) {
+                        // If header is visible and user taps outside, hide it immediately
+                        setIsVisible(false);
+                        clearExistingTimeout();
+                    } else {
+                        // If header is not visible, show it for 5 seconds
+                        showHeader(5000);
+                    }
                 }
             }
         };
@@ -61,7 +81,7 @@ export default function Header({ pageNum, left, title, right }: { pageNum: numbe
         // Add click event listener to handle taps anywhere on the screen
         document.addEventListener('click', handleTap);
         return () => document.removeEventListener('click', handleTap);
-    }, [showHeader, isVisible]);
+    }, [showHeader, isVisible, clearExistingTimeout]);
 
     // ReactElement.prototype.
     var titleElem: ReactElement;
@@ -82,7 +102,7 @@ export default function Header({ pageNum, left, title, right }: { pageNum: numbe
     }
 
     return <div
-        className={`fixed t-0 l-0 z-10 w-full transition-opacity duration-300 ${isVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+        className={`fixed top-0 left-0 z-10 w-full transition-opacity duration-300 ${isVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => setIsHovering(false)}
     >
