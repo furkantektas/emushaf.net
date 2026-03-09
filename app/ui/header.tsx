@@ -82,7 +82,7 @@ export default function Header({ pageNum, left, title, right }: { pageNum: numbe
     }
 
     return <div
-        className={`fixed t-0 l-0 z-10 w-full transition-opacity duration-300 ${isVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+        className={`fixed top-0 left-0 z-10 w-full transition-opacity duration-300 ${isVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => setIsHovering(false)}
     >
