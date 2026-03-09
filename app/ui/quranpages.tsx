@@ -1,8 +1,9 @@
 "use client";
 
-import React, { ReactElement, useEffect, useRef, useState } from "react";
+import React, { ReactElement, useEffect, useRef, useState, Suspense } from "react";
 import QuranPage from "./quran-page";
 import Header, { CuzHeader, SurahHeader } from "@/app/ui/header";
+import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 import { Swiper, SwiperClass, SwiperSlide } from 'swiper/react';
 import { usePreferences } from "../context/preferences";
 import 'swiper/css';
@@ -18,22 +19,36 @@ export default function QuranPages({
     start,
     end,
     header,
-    onPageChange
+    onPageChange,
+    initialPage
 }: {
     start: number,
     end: number,
     header?: React.ReactNode,
-    onPageChange?: (page: number) => void
+    onPageChange?: (page: number) => void,
+    initialPage?: number
 }) {
     const swiperInstanceRef = useRef<SwiperClass | null>(null);
-    const [pageNum, setPageNum] = useState<number>(start);
+    const [pageNum, setPageNum] = useState<number>(initialPage || start);
     const { preferences } = usePreferences(); // Get preferences
+    const searchParams = useSearchParams();
+    const pathname = usePathname();
+    const router = useRouter();
 
     // Determine if landscape width fit mode is active
     // TODO: Add actual orientation detection if possible, for now, treat fitTo:'width' as landscape context
     const isLandscapeWidthFit = preferences.fitTo === 'width';
 
     header = header || <Header title={`Sayfa ${start} - ${end}`} pageNum={pageNum} />
+
+    useEffect(() => {
+        if (swiperInstanceRef.current && initialPage && initialPage >= start && initialPage <= end) {
+            const targetIndex = initialPage - start;
+            if (swiperInstanceRef.current.activeIndex !== targetIndex) {
+                swiperInstanceRef.current.slideTo(targetIndex);
+            }
+        }
+    }, [initialPage, start, end]);
 
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
@@ -79,6 +94,7 @@ export default function QuranPages({
             <Swiper
                 dir="rtl"
                 onSwiper={(swiper) => { swiperInstanceRef.current = swiper; }}
+                initialSlide={(initialPage && initialPage >= start && initialPage <= end) ? initialPage - start : 0}
                 slidesPerView={1}
                 grabCursor={true}
                 slidesPerGroup={1}
@@ -96,6 +112,10 @@ export default function QuranPages({
                     setPageNum(currentPageNum);
                     onPageChange?.(currentPageNum);
 
+                    const params = new URLSearchParams(searchParams.toString());
+                    params.set('p', currentPageNum.toString());
+                    router.replace(`${pathname}?${params.toString()}`, { scroll: false });
+
                     // Scroll the active slide to the top smoothly
                     if (swiper.slides && swiper.slides[swiper.activeIndex]) {
                         swiper.slides[swiper.activeIndex].scrollTo({ top: 0, behavior: 'smooth' });
@@ -108,8 +128,12 @@ export default function QuranPages({
     );
 }
 
-export function SurahPages({ surah }: { surah: Surah }) {
-    const [currentPageNum, setCurrentPageNum] = useState<number>(surah.start);
+function SurahPagesContent({ surah }: { surah: Surah }) {
+    const searchParams = useSearchParams();
+    const initialPageParam = searchParams.get('p');
+    const initialPage = initialPageParam ? parseInt(initialPageParam) : surah.start;
+
+    const [currentPageNum, setCurrentPageNum] = useState<number>(initialPage);
     const header = <SurahHeader surah={surah} pageNum={currentPageNum} />
 
     return <QuranPages
@@ -117,12 +141,24 @@ export function SurahPages({ surah }: { surah: Surah }) {
         end={surah.end}
         header={header}
         onPageChange={setCurrentPageNum}
+        initialPage={initialPage}
     />;
 }
 
+export function SurahPages({ surah }: { surah: Surah }) {
+    return (
+        <Suspense>
+            <SurahPagesContent surah={surah} />
+        </Suspense>
+    );
+}
 
-export function CuzPages({ cuz }: { cuz: Cuz }) {
-    const [currentPageNum, setCurrentPageNum] = useState<number>(cuz.start);
+function CuzPagesContent({ cuz }: { cuz: Cuz }) {
+    const searchParams = useSearchParams();
+    const initialPageParam = searchParams.get('p');
+    const initialPage = initialPageParam ? parseInt(initialPageParam) : cuz.start;
+
+    const [currentPageNum, setCurrentPageNum] = useState<number>(initialPage);
     const header = <CuzHeader cuz={cuz} pageNum={currentPageNum} />
 
     return <QuranPages
@@ -130,5 +166,14 @@ export function CuzPages({ cuz }: { cuz: Cuz }) {
         end={cuz.end}
         header={header}
         onPageChange={setCurrentPageNum}
+        initialPage={initialPage}
     />;
+}
+
+export function CuzPages({ cuz }: { cuz: Cuz }) {
+    return (
+        <Suspense>
+            <CuzPagesContent cuz={cuz} />
+        </Suspense>
+    );
 }
