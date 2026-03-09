@@ -88,7 +88,7 @@ export default function QuranPages({
                 pagination={{ clickable: true }}
                 keyboard={{ enabled: true }}
                 modules={[Pagination, Navigation, Keyboard]}
-                className={`h-screen ${isLandscapeWidthFit ? 'swiper-landscape-width-fit' : ''}`}
+                className={`h-screen overflow-hidden ${isLandscapeWidthFit ? 'swiper-landscape-width-fit' : ''}`}
                 speed={300}
                 freeMode={false}
                 onSlideChange={(swiper: SwiperClass) => {

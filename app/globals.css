@@ -154,13 +154,8 @@
   }
 
   body {
-    @apply bg-background text-foreground overflow-x-hidden;
+    @apply bg-background text-foreground;
   }
-}
-
-/* Prevent vertical scrolling on Quran pages */
-.h-screen {
-  overflow: hidden;
 }
 
 /* Apply box-sizing to all swiper slides for consistent layout */
@@ -171,6 +166,13 @@
 /* Enable vertical scrolling for swiper slides in landscape width-fit mode */
 .swiper-landscape-width-fit .swiper-slide {
   overflow-y: auto !important;
+}
+
+/* Hide navigation and pagination in landscape width-fit mode */
+.swiper-landscape-width-fit .swiper-button-next,
+.swiper-landscape-width-fit .swiper-button-prev,
+.swiper-landscape-width-fit .swiper-pagination {
+  display: none !important;
 }
 
 /* Hide navigation and pagination on portrait screens */
