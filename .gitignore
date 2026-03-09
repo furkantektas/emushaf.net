@@ -24,6 +24,14 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+*.log
+
+# testing
+/test-results/
+/playwright-report/
+playwright.config.ts
+verify_header*.spec.ts
+index.html
 
 # local env files
 .env*.local
