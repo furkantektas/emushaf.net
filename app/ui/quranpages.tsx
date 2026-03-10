@@ -8,9 +8,8 @@ import { Swiper, SwiperClass, SwiperSlide } from 'swiper/react';
 import { usePreferences } from "../context/preferences";
 import 'swiper/css';
 import 'swiper/css/navigation';
-import 'swiper/css/pagination';
 import 'swiper/css/keyboard';
-import { Pagination, Navigation, Keyboard } from 'swiper/modules';
+import { Navigation, Keyboard } from 'swiper/modules';
 import { Surah } from "@/interfaces/surah";
 import LastVisitUpdater from "../components/lastvisit";
 import { Cuz } from "@/interfaces/cuz";
@@ -101,9 +100,8 @@ export default function QuranPages({
                 navigation
                 cssMode={false}
                 spaceBetween={50}
-                pagination={{ clickable: true }}
                 keyboard={{ enabled: true }}
-                modules={[Pagination, Navigation, Keyboard]}
+                modules={[Navigation, Keyboard]}
                 className={`h-screen overflow-hidden ${isLandscapeWidthFit ? 'swiper-landscape-width-fit' : ''}`}
                 speed={300}
                 freeMode={false}
