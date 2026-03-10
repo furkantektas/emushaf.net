@@ -3,6 +3,7 @@ import "./globals.css";
 import { ThemeProvider } from "next-themes";
 import ThemeColorSetter from "./ui/theme-color-setter";
 import { PreferencesProvider } from './context/preferences';
+import { NavigationProvider } from './context/navigation-context';
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
 
@@ -23,7 +24,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       </head>
       <body>
         <PreferencesProvider>
-          <ThemeProvider attribute="class">{children}<ThemeColorSetter /></ThemeProvider>
+          <NavigationProvider>
+            <ThemeProvider attribute="class">{children}<ThemeColorSetter /></ThemeProvider>
+          </NavigationProvider>
         </PreferencesProvider>
       </body>
     </html>
