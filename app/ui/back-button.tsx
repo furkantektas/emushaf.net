@@ -1,12 +1,14 @@
 "use client";
 import { ChevronLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useNavigation } from "../context/navigation-context";
 
 export default function BackButton({ fallback, className, icon }: { fallback?: string, className?: string, icon?: React.ReactNode }) {
     const router = useRouter();
+    const { navigationCount } = useNavigation();
 
     function handleBack() {
-        if (window.history.length > 1) {
+        if (navigationCount > 1) {
             router.back();
         } else {
             router.push(fallback || "/");
