@@ -113,8 +113,19 @@ export default function QuranPages({
                     onPageChange?.(currentPageNum);
 
                     const params = new URLSearchParams(searchParams.toString());
-                    params.set('p', currentPageNum.toString());
-                    router.replace(`${pathname}?${params.toString()}`, { scroll: false });
+                    if (currentPageNum === start) {
+                        params.delete('sayfa');
+                    } else {
+                        params.set('sayfa', currentPageNum.toString());
+                    }
+
+                    const queryString = params.toString();
+                    const newUrl = `${pathname}${queryString ? `?${queryString}` : ''}`;
+
+                    // Only replace if the URL actually changed to avoid unnecessary router overhead
+                    if (typeof window !== 'undefined' && (window.location.pathname + window.location.search !== newUrl)) {
+                        router.replace(newUrl, { scroll: false });
+                    }
 
                     // Scroll the active slide to the top smoothly
                     if (swiper.slides && swiper.slides[swiper.activeIndex]) {
@@ -130,10 +141,65 @@ export default function QuranPages({
 
 function SurahPagesContent({ surah }: { surah: Surah }) {
     const searchParams = useSearchParams();
-    const initialPageParam = searchParams.get('p');
+    const pathname = usePathname();
+    const initialPageParam = searchParams.get('sayfa');
     const initialPage = initialPageParam ? parseInt(initialPageParam) : surah.start;
 
     const [currentPageNum, setCurrentPageNum] = useState<number>(initialPage);
+
+    useEffect(() => {
+        const title = `${surah.name} Suresi, Sayfa ${currentPageNum} - eMushaf.net`;
+        document.title = title;
+
+        // Update meta description
+        const description = `${surah.name} Suresi, Sayfa ${currentPageNum}. Kuran-ı Kerim'i kolaylıkla telefon, tablet ve bilgisayarınızdan okuyun.`;
+        const metaDesc = document.querySelector('meta[name="description"]');
+        if (metaDesc) {
+            metaDesc.setAttribute("content", description);
+        }
+
+        // Update canonical link
+        let canonical = document.querySelector('link[rel="canonical"]');
+        if (!canonical) {
+            canonical = document.createElement('link');
+            canonical.setAttribute('rel', 'canonical');
+            document.head.appendChild(canonical);
+        }
+        const url = new URL(window.location.href);
+        const canonicalUrl = `${url.origin}${pathname}${currentPageNum !== surah.start ? `?sayfa=${currentPageNum}` : ''}`;
+        canonical.setAttribute('href', canonicalUrl);
+
+        // Update rel="prev"
+        let prev = document.querySelector('link[rel="prev"]');
+        if (currentPageNum > surah.start) {
+            if (!prev) {
+                prev = document.createElement('link');
+                prev.setAttribute('rel', 'prev');
+                document.head.appendChild(prev);
+            }
+            const prevPage = currentPageNum - 1;
+            const prevHref = `${url.origin}${pathname}${prevPage !== surah.start ? `?sayfa=${prevPage}` : ''}`;
+            prev.setAttribute('href', prevHref);
+        } else if (prev) {
+            prev.remove();
+        }
+
+        // Update rel="next"
+        let next = document.querySelector('link[rel="next"]');
+        if (currentPageNum < surah.end) {
+            if (!next) {
+                next = document.createElement('link');
+                next.setAttribute('rel', 'next');
+                document.head.appendChild(next);
+            }
+            const nextPage = currentPageNum + 1;
+            const nextHref = `${url.origin}${pathname}?sayfa=${nextPage}`;
+            next.setAttribute('href', nextHref);
+        } else if (next) {
+            next.remove();
+        }
+    }, [surah.name, currentPageNum, pathname, surah.start, surah.end]);
+
     const header = <SurahHeader surah={surah} pageNum={currentPageNum} />
 
     return <QuranPages
@@ -155,10 +221,65 @@ export function SurahPages({ surah }: { surah: Surah }) {
 
 function CuzPagesContent({ cuz }: { cuz: Cuz }) {
     const searchParams = useSearchParams();
-    const initialPageParam = searchParams.get('p');
+    const pathname = usePathname();
+    const initialPageParam = searchParams.get('sayfa');
     const initialPage = initialPageParam ? parseInt(initialPageParam) : cuz.start;
 
     const [currentPageNum, setCurrentPageNum] = useState<number>(initialPage);
+
+    useEffect(() => {
+        const title = `${cuz.number}. Cüz, Sayfa ${currentPageNum} - eMushaf.net`;
+        document.title = title;
+
+        // Update meta description
+        const description = `${cuz.number}. Cüz, Sayfa ${currentPageNum}. Kuran-ı Kerim'i kolaylıkla telefon, tablet ve bilgisayarınızdan okuyun.`;
+        const metaDesc = document.querySelector('meta[name="description"]');
+        if (metaDesc) {
+            metaDesc.setAttribute("content", description);
+        }
+
+        // Update canonical link
+        let canonical = document.querySelector('link[rel="canonical"]');
+        if (!canonical) {
+            canonical = document.createElement('link');
+            canonical.setAttribute('rel', 'canonical');
+            document.head.appendChild(canonical);
+        }
+        const url = new URL(window.location.href);
+        const canonicalUrl = `${url.origin}${pathname}${currentPageNum !== cuz.start ? `?sayfa=${currentPageNum}` : ''}`;
+        canonical.setAttribute('href', canonicalUrl);
+
+        // Update rel="prev"
+        let prev = document.querySelector('link[rel="prev"]');
+        if (currentPageNum > cuz.start) {
+            if (!prev) {
+                prev = document.createElement('link');
+                prev.setAttribute('rel', 'prev');
+                document.head.appendChild(prev);
+            }
+            const prevPage = currentPageNum - 1;
+            const prevHref = `${url.origin}${pathname}${prevPage !== cuz.start ? `?sayfa=${prevPage}` : ''}`;
+            prev.setAttribute('href', prevHref);
+        } else if (prev) {
+            prev.remove();
+        }
+
+        // Update rel="next"
+        let next = document.querySelector('link[rel="next"]');
+        if (currentPageNum < cuz.end) {
+            if (!next) {
+                next = document.createElement('link');
+                next.setAttribute('rel', 'next');
+                document.head.appendChild(next);
+            }
+            const nextPage = currentPageNum + 1;
+            const nextHref = `${url.origin}${pathname}?sayfa=${nextPage}`;
+            next.setAttribute('href', nextHref);
+        } else if (next) {
+            next.remove();
+        }
+    }, [cuz.number, currentPageNum, pathname, cuz.start, cuz.end]);
+
     const header = <CuzHeader cuz={cuz} pageNum={currentPageNum} />
 
     return <QuranPages
