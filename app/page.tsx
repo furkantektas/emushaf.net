@@ -7,6 +7,7 @@ import { useEffect, useRef } from 'react';
 import { Book } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import AddToHomeScreen from '@/components/AddToHomeScreen';
+import ContinueReading from './components/ContinueReading';
 
 import { Card, CardContent } from "@/components/ui/card"
 import { Surahs } from "@/data/surahs";
@@ -46,6 +47,7 @@ export default function Home() {
             </div>
           </section>
 
+          <ContinueReading />
           <AddToHomeScreen />
 
           <section className="mb-12">
@@ -118,69 +120,5 @@ export default function Home() {
     </div>
 
 
-  );
-
-  return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-0 lg:p-16">
-      <div className="z-10 w-full lg:max-w-5xl items-start justify-between lg:flex gap-4 ">
-        <div className="lg:w-4/12 justify-center flex flex-col text-center items-center">
-          <Image
-            src="/emushaf-quran-logo.svg"
-            alt="e-Mushaf Logo"
-            width={150}
-            height={150}
-            priority
-          />
-          <h1 className="text-3xl font-light tracking-tight">e-Mushaf</h1>
-          <p className="text-sm text-neutral-700 dark:text-neutral-300 pt-4 mb-4">Telefon, tablet ve bilgisayarınızdan kuran okuyun.</p>
-          <div className="w-full" ref={searchRef}>
-            <QuranSearch />
-          </div>
-        </div>
-        <div className="lg:w-8/12 mt-4 lg:mt-0 justify-center flex flex-col space-y-4">
-          <section className="w-full rounded-md overflow-hidden border border-slate-200 dark:border-slate-600">
-            <h2 id="cok-okunan-sureler" className="bg-slate-200 dark:bg-slate-600 py-3 px-4 font-bold">
-              En çok okunan sureler
-            </h2>
-            <nav aria-labelledby="cok-okunan-sureler">
-              <ul className="divide-y divide-slate-200 dark:divide-slate-700">
-                {[
-                  { href: "/sure/yasin", name: "Yâsîn" },
-                  { href: "/sure/mulk", name: "Mülk (Tebareke)" },
-                  { href: "/sure/nebe", name: "Nebe (Amme)" },
-                  { href: "/sure/rahman", name: "Rahmân" },
-                  { href: "/sure/vakia", name: "Vâkı'a" },
-                  { href: "/sure/fetih", name: "Fetih" },
-                ].map((surah, index) => (
-                  <li key={index}>
-                    <Link
-                      href={surah.href}
-                      className="block px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors duration-150 ease-in-out focus:outline-hidden focus:ring-2 focus:ring-blue-500"
-                    >
-                      {surah.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-          </section>
-          <div className="flex space-x-4">
-            <Link
-              href="/sure"
-              className="flex-1 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md text-center font-medium transition-colors duration-150 ease-in-out focus:outline-hidden focus:ring-2 focus:ring-blue-300"
-            >
-              Tüm Sureleri Görüntüle
-            </Link>
-            <Link
-              href="/cuz"
-              className="flex-1 px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-md text-center font-medium transition-colors duration-150 ease-in-out focus:outline-hidden focus:ring-2 focus:ring-green-300"
-            >
-              Cüzleri Görüntüle
-            </Link>
-          </div>
-        </div>
-      </div>
-      <ThemeSwitcher />
-    </main>
   );
 }

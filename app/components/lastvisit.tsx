@@ -1,25 +1,37 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
-import { usePathname } from 'next/navigation';
+import { useEffect, useRef, Suspense } from 'react';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { usePreferences } from '../context/preferences';
 
-const LastVisitUpdater = () => {
+const LastVisitUpdaterContent = () => {
     const pathname = usePathname();
+    const searchParams = useSearchParams();
     const { updatePreferences } = usePreferences();
-    const lastPathRef = useRef(pathname);
+
+    const queryString = searchParams.toString();
+    const fullPath = `${pathname}${queryString ? `?${queryString}` : ''}`;
+    const lastPathRef = useRef(fullPath);
 
     useEffect(() => {
-        if (pathname !== lastPathRef.current) {
+        if (fullPath !== '/') {
             updatePreferences({
-                lastPage: pathname,
+                lastPage: fullPath,
                 lastVisitTime: new Date().toISOString(),
             });
-            lastPathRef.current = pathname;
+            lastPathRef.current = fullPath;
         }
-    }, [pathname, updatePreferences]);
+    }, [fullPath, updatePreferences]);
 
     return null;
 };
+
+const LastVisitUpdater = () => {
+    return (
+        <Suspense fallback={null}>
+            <LastVisitUpdaterContent />
+        </Suspense>
+    );
+}
 
 export default LastVisitUpdater;
