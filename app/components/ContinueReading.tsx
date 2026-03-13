@@ -63,14 +63,14 @@ export default function ContinueReading() {
     }
 
     return (
-        <div className="mt-4 flex justify-center">
+        <div className="mt-4 flex justify-center w-full max-w-md mx-auto px-4">
             <Link
                 href={preferences.lastPage}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-muted/50 hover:bg-muted transition-colors text-sm text-muted-foreground border border-transparent hover:border-primary/20 group"
+                className="flex sm:inline-flex items-center justify-center gap-2 w-full sm:w-auto px-4 py-2 rounded-full bg-muted/50 hover:bg-muted transition-colors text-sm text-muted-foreground border border-transparent hover:border-primary/20 group"
             >
                 <BookOpen className="h-4 w-4 text-primary/70 group-hover:text-primary transition-colors" />
-                <span>Okumaya devam et: <span className="font-medium text-foreground">{label}</span></span>
-                <span className="hidden sm:inline opacity-0 group-hover:opacity-100 transition-opacity ml-1">→</span>
+                <span className="truncate">Okumaya devam et: <span className="font-medium text-foreground">{label}</span></span>
+                <span className="opacity-40 group-hover:opacity-100 transition-opacity ml-1">→</span>
             </Link>
         </div>
     );

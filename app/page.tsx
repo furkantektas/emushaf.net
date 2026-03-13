@@ -47,6 +47,7 @@ export default function Home() {
             </div>
             <ContinueReading />
           </section>
+
           <AddToHomeScreen />
 
           <section className="mb-12">
@@ -107,20 +108,19 @@ export default function Home() {
 
         </main>
 
-        <footer className="pb-12 text-center z-10">
-          <p className="text-sm text-muted-foreground mb-4">
-            Muhabbetle yapılmıştır. <a href="https://github.com/furkantektas/emushaf.net/issues" className="text-blue-600 border-b border-blue-600" target="_blank"
-            >(iletişim)</a></p>
+        <footer className="pb-12 text-center z-10 space-y-4">
+          <div className="max-w-2xl mx-auto px-4">
+            <p className="text-sm text-muted-foreground italic mb-6">
+              Allah rızası güdülerek yapılmıştır ve bu amaçla hizmet vermeye devam etmektedir. Dualarınızı bekleriz.
+            </p>
 
-          <div className="max-w-2xl mx-auto px-4 space-y-4">
-            <p className="text-xs text-muted-foreground">
-              Gizlilik ve Veri: eMushaf.net hiçbir kullanıcı verisini toplamaz, işlemez veya sunucularına kaydetmez.
-              Okuma tercihleri ve son ziyaret bilgileri tamamen sizin cihazınızda (tarayıcınızda) saklanır ve kimse tarafından erişilemez.
-            </p>
-            <p className="text-xs text-muted-foreground">
-              Açık Kaynak: Bu projenin kaynak kodları herkese açıktır ve <a href="https://github.com/furkantektas/emushaf.net" className="text-blue-600 underline" target="_blank">GitHub</a> üzerinden incelenebilir.
-            </p>
-            <p className="text-sm text-muted-foreground">
+            <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-muted-foreground">
+              <a href="https://github.com/furkantektas/emushaf.net/issues" target="_blank" className="hover:text-blue-600 underline underline-offset-4">İletişim</a>
+              <Link href="/gizlilik" className="hover:text-blue-600 underline underline-offset-4">Gizlilik</Link>
+              <a href="https://github.com/furkantektas/emushaf.net" target="_blank" className="hover:text-blue-600 underline underline-offset-4">Açık Kaynak</a>
+            </div>
+
+            <p className="text-xs text-muted-foreground mt-8">
               Kur'an-ı Kerim sayfaları Ahmed Hüsrev Hatlı Tevafuklu Kur'an-ı Kerim'den, Hayrat Neşriyat yetkililerinin izniyle alınmıştır. <br />Ticari amaç güdülerek kullanılması, çoğaltılması ve dağıtılması yasaktır.
             </p>
           </div>
