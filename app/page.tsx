@@ -45,9 +45,8 @@ export default function Home() {
             <div className="max-w-md mx-auto relative">
               <QuranSearch />
             </div>
+            <ContinueReading />
           </section>
-
-          <ContinueReading />
           <AddToHomeScreen />
 
           <section className="mb-12">
@@ -108,13 +107,23 @@ export default function Home() {
 
         </main>
 
-        <footer className="pb-4 text-center z-10">
-          <p className="text-sm text-muted-foreground">
-            Muhabbetle yapılmıştır. <a href="https://furkantektas.com" className="text-blue-600 border-b border-blue-600" target="_blank"
+        <footer className="pb-12 text-center z-10">
+          <p className="text-sm text-muted-foreground mb-4">
+            Muhabbetle yapılmıştır. <a href="https://github.com/furkantektas/emushaf.net/issues" className="text-blue-600 border-b border-blue-600" target="_blank"
             >(iletişim)</a></p>
-          <p className="text-sm text-muted-foreground">
-            Kur'an-ı Kerim sayfaları Ahmed Hüsrev Hatlı Tevafuklu Kur'an-ı Kerim'den, Hayrat Neşriyat yetkililerinin izniyle alınmıştır. <br />Ticari amaç güdülerek kullanılması, çoğaltılması ve dağıtılması yasaktır.
-          </p>
+
+          <div className="max-w-2xl mx-auto px-4 space-y-4">
+            <p className="text-xs text-muted-foreground">
+              Gizlilik ve Veri: eMushaf.net hiçbir kullanıcı verisini toplamaz, işlemez veya sunucularına kaydetmez.
+              Okuma tercihleri ve son ziyaret bilgileri tamamen sizin cihazınızda (tarayıcınızda) saklanır ve kimse tarafından erişilemez.
+            </p>
+            <p className="text-xs text-muted-foreground">
+              Açık Kaynak: Bu projenin kaynak kodları herkese açıktır ve <a href="https://github.com/furkantektas/emushaf.net" className="text-blue-600 underline" target="_blank">GitHub</a> üzerinden incelenebilir.
+            </p>
+            <p className="text-sm text-muted-foreground">
+              Kur'an-ı Kerim sayfaları Ahmed Hüsrev Hatlı Tevafuklu Kur'an-ı Kerim'den, Hayrat Neşriyat yetkililerinin izniyle alınmıştır. <br />Ticari amaç güdülerek kullanılması, çoğaltılması ve dağıtılması yasaktır.
+            </p>
+          </div>
         </footer>
       </div>
     </div>
