@@ -30,13 +30,13 @@ export const PreferencesProvider: React.FC<{ children: ReactNode }> = ({ childre
         }
     }, []);
 
-    const updatePreferences = (newPreferences: Partial<Preferences>) => {
+    const updatePreferences = React.useCallback((newPreferences: Partial<Preferences>) => {
         setPreferences((prevPreferences) => {
             const updatedPreferences = { ...prevPreferences, ...newPreferences };
             localStorage.setItem('appPreferences', JSON.stringify(updatedPreferences));
             return updatedPreferences;
         });
-    };
+    }, []);
 
     return (
         <PreferencesContext.Provider value={{ preferences, updatePreferences }}>
