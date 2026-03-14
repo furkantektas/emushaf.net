@@ -31,16 +31,19 @@ export default function PrivacyPage() {
                     </div>
 
                     <div>
-                        <h2 className="text-xl font-semibold mb-3">Sunucu Günlükleri ve Cloudflare</h2>
+                        <h2 className="text-xl font-semibold mb-3">Altyapı ve Güvenlik (Cloudflare)</h2>
                         <p>
-                            Web sitemiz güvenliğini sağlamak ve performansı optimize etmek amacıyla <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="external" className="underline hover:text-blue-600">Cloudflare</a> hizmetini kullanmaktadır. Cloudflare, standart internet protokolleri gereği bazı teknik bilgileri (IP adresi, tarayıcı türü vb.) sunucu günlüklerinde (logs) tutabilir. Bu veriler sadece hizmetin devamlılığı ve güvenliği için kullanılır. Daha fazla bilgi için Cloudflare'in <a href="https://www.cloudflare.com/legal/article14-notice/" target="_blank" rel="external" className="underline hover:text-blue-600">proxy edilen web siteleri için gizlilik politikasına</a> göz atabilirsiniz.
+                            eMushaf.net, CDN (İçerik Dağıtım Ağı) ve güvenlik sağlayıcısı olarak Cloudflare kullanmaktadır. Cloudflare, web sitesini korumak ve hızlı bir şekilde sunmak amacıyla IP adreslerini ve diğer teknik verileri işleyebilir.
+                        </p>
+                        <p className="mt-3">
+                            Cloudflare bu süreçte veri işleyen (data processor) konumundadır ve eMushaf.net adına ziyaretçi trafiğini yönetir. Toplanan teknik veriler münhasıran web sitesinin güvenliğini, performansını ve güvenilirliğini artırmak amacıyla kullanılır.
                         </p>
                     </div>
 
                     <div>
-                        <h2 className="text-xl font-semibold mb-3">Veri Paylaşımı</h2>
+                        <h2 className="text-xl font-semibold mb-3">Veri Paylaşımı ve Analitik</h2>
                         <p>
-                            Toplanmayan hiçbir veri paylaşılamaz veya satılamaz. eMushaf.net hiçbir şekilde kullanıcı verisi ticareti yapmaz.
+                            eMushaf.net verilerinizle ilgilenmez. Sitemizde kullanıcı analitiği araçları veya diğer üçüncü taraf sağlayıcılar bulunmamaktadır. Hiçbir veriniz üçüncü şahıslarla paylaşılmaz veya satılmaz. eMushaf.net hiçbir şekilde kullanıcı verisi ticareti yapmaz.
                         </p>
                     </div>
 
