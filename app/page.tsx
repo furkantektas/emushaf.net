@@ -110,19 +110,19 @@ export default function Home() {
 
         <footer className="pb-12 text-center z-10 space-y-4">
           <div className="max-w-2xl mx-auto px-4">
-            <p className="text-sm text-muted-foreground italic mb-6">
-              Allah rızası güdülerek yapılmıştır ve bu amaçla hizmet vermeye devam etmektedir. Dualarınızı bekleriz.
+            <p className="text-sm text-muted-foreground italic mb-4">
+              Allah rızası güdülerek yapılmıştır ve bu amaçla hizmet vermeye devam etmektedir.
             </p>
 
-            <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-muted-foreground">
+            <p className="text-xs text-muted-foreground">
+              Kur'an-ı Kerim sayfaları Ahmed Hüsrev Hatlı Tevafuklu Kur'an-ı Kerim'den, Hayrat Neşriyat yetkililerinin izniyle alınmıştır. <br />Ticari amaç güdülerek kullanılması, çoğaltılması ve dağıtılması yasaktır.
+            </p>
+
+            <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs text-muted-foreground mt-6 pt-6 border-t">
               <a href="https://github.com/furkantektas/emushaf.net/issues" target="_blank" className="hover:text-blue-600 underline underline-offset-4">İletişim</a>
               <Link href="/gizlilik" className="hover:text-blue-600 underline underline-offset-4">Gizlilik</Link>
               <a href="https://github.com/furkantektas/emushaf.net" target="_blank" className="hover:text-blue-600 underline underline-offset-4">Açık Kaynak</a>
             </div>
-
-            <p className="text-xs text-muted-foreground mt-8">
-              Kur'an-ı Kerim sayfaları Ahmed Hüsrev Hatlı Tevafuklu Kur'an-ı Kerim'den, Hayrat Neşriyat yetkililerinin izniyle alınmıştır. <br />Ticari amaç güdülerek kullanılması, çoğaltılması ve dağıtılması yasaktır.
-            </p>
           </div>
         </footer>
       </div>

@@ -4,7 +4,7 @@ import Header from '../ui/header';
 
 export default function PrivacyPage() {
     return (
-        <div className="min-h-screen flex flex-col bg-page text-foreground">
+        <div className="min-h-screen flex flex-col bg-background text-foreground">
             <Header pageNum={0} title="Gizlilik Politikası" />
 
             <main className="container mx-auto px-4 pt-24 pb-12 max-w-3xl">
