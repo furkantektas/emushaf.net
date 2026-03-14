@@ -118,7 +118,7 @@ export default function Home() {
               Kur'an-ı Kerim sayfaları Ahmed Hüsrev Hatlı Tevafuklu Kur'an-ı Kerim'den, Hayrat Neşriyat yetkililerinin izniyle alınmıştır. <br />Ticari amaç güdülerek kullanılması, çoğaltılması ve dağıtılması yasaktır.
             </p>
 
-            <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs text-muted-foreground mt-6 pt-6 border-t">
+            <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs text-muted-foreground mt-6">
               <a href="https://github.com/furkantektas/emushaf.net/issues" target="_blank" className="hover:text-blue-600 underline underline-offset-4">İletişim</a>
               <Link href="/gizlilik" className="hover:text-blue-600 underline underline-offset-4">Gizlilik</Link>
               <a href="https://github.com/furkantektas/emushaf.net" target="_blank" className="hover:text-blue-600 underline underline-offset-4">Açık Kaynak</a>

@@ -1,14 +1,15 @@
 'use client';
 import React from 'react';
 import Header from '../ui/header';
+import ThemeSwitcher from '../ui/theme-switcher';
 
 export default function PrivacyPage() {
     return (
         <div className="min-h-screen flex flex-col bg-background text-foreground">
-            <Header pageNum={0} title="Gizlilik Politikası" />
+            <Header pageNum={0} title="Gizlilik Politikası" right={<ThemeSwitcher />} />
 
             <main className="container mx-auto px-4 pt-24 pb-12 max-w-3xl">
-                <h1 className="text-3xl font-bold mb-8">Gizlilik Politikası</h1>
+                <h1 className="text-3xl font-bold mb-8">Bilgilendirme ve Gizlilik</h1>
 
                 <section className="space-y-6 text-lg leading-relaxed">
                     <p>
