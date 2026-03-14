@@ -110,10 +110,6 @@ export default function Home() {
 
         <footer className="pb-12 text-center z-10 space-y-4">
           <div className="max-w-2xl mx-auto px-4">
-            <p className="text-sm text-muted-foreground italic mb-4">
-              Allah rızası güdülerek yapılmıştır ve bu amaçla hizmet vermeye devam etmektedir.
-            </p>
-
             <p className="text-xs text-muted-foreground">
               Kur'an-ı Kerim sayfaları Ahmed Hüsrev Hatlı Tevafuklu Kur'an-ı Kerim'den, Hayrat Neşriyat yetkililerinin izniyle alınmıştır. <br />Ticari amaç güdülerek kullanılması, çoğaltılması ve dağıtılması yasaktır.
             </p>

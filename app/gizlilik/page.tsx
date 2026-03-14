@@ -13,7 +13,7 @@ export default function PrivacyPage() {
 
                 <section className="space-y-6 text-lg leading-relaxed">
                     <p>
-                        eMushaf.net olarak gizliliğinize önem veriyoruz. Bu sayfa, web sitemizi kullanırken verilerinizin nasıl işlendiği hakkında sizi bilgilendirmek amacıyla hazırlanmıştır.
+                        eMushaf.net olarak gizliliğinize önem veriyoruz.
                     </p>
 
                     <div>
@@ -33,7 +33,7 @@ export default function PrivacyPage() {
                     <div>
                         <h2 className="text-xl font-semibold mb-3">Sunucu Günlükleri ve Cloudflare</h2>
                         <p>
-                            Web sitemiz güvenliğini sağlamak ve performansı optimize etmek amacıyla Cloudflare hizmetini kullanmaktadır. Cloudflare, standart internet protokolleri gereği bazı teknik bilgileri (IP adresi, tarayıcı türü vb.) sunucu günlüklerinde (logs) tutabilir. Bu veriler sadece hizmetin devamlılığı ve güvenliği için kullanılır.
+                            Web sitemiz güvenliğini sağlamak ve performansı optimize etmek amacıyla <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="external" className="underline hover:text-blue-600">Cloudflare</a> hizmetini kullanmaktadır. Cloudflare, standart internet protokolleri gereği bazı teknik bilgileri (IP adresi, tarayıcı türü vb.) sunucu günlüklerinde (logs) tutabilir. Bu veriler sadece hizmetin devamlılığı ve güvenliği için kullanılır. Daha fazla bilgi için Cloudflare'in <a href="https://www.cloudflare.com/legal/article14-notice/" target="_blank" rel="external" className="underline hover:text-blue-600">proxy edilen web siteleri için gizlilik politikasına</a> göz atabilirsiniz.
                         </p>
                     </div>
 
