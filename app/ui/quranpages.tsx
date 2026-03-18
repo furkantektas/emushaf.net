@@ -2,14 +2,15 @@
 
 import React, { ReactElement, useEffect, useRef, useState, Suspense } from "react";
 import QuranPage from "./quran-page";
-import Header, { CuzHeader, SurahHeader } from "@/app/ui/header";
+import Header, { CuzHeader, SurahHeader, PageHeader } from "@/app/ui/header";
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 import { Swiper, SwiperClass, SwiperSlide } from 'swiper/react';
 import { usePreferences } from "../context/preferences";
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/keyboard';
-import { Navigation, Keyboard } from 'swiper/modules';
+import 'swiper/css/virtual';
+import { Navigation, Keyboard, Virtual } from 'swiper/modules';
 import { Surah } from "@/interfaces/surah";
 import LastVisitUpdater from "../components/lastvisit";
 import { Cuz } from "@/interfaces/cuz";
@@ -73,19 +74,6 @@ export default function QuranPages({
         };
     }, [isLandscapeWidthFit, pageNum]); // Rerun if mode changes or page (active slide) changes
 
-    const pages: ReactElement[] = [];
-    for (let num = start; num <= end; num++) {
-        // Determine if the page should be loaded with priority
-        // Preload current, one previous, and two next pages
-        const shouldBePriority = num >= pageNum - 1 && num <= pageNum + 2;
-        pages.push(
-            <SwiperSlide key={`sayfa-${num}`}>
-                <QuranPage number={num} isPriority={shouldBePriority} />
-                <div className="swiper-lazy-preloader"></div>
-            </SwiperSlide>
-        );
-    }
-
     return (
         <div>
             <LastVisitUpdater />
@@ -101,7 +89,8 @@ export default function QuranPages({
                 cssMode={false}
                 spaceBetween={50}
                 keyboard={{ enabled: true }}
-                modules={[Navigation, Keyboard]}
+                virtual
+                modules={[Navigation, Keyboard, Virtual]}
                 className={`h-screen overflow-hidden ${isLandscapeWidthFit ? 'swiper-landscape-width-fit' : ''}`}
                 speed={300}
                 freeMode={false}
@@ -131,7 +120,18 @@ export default function QuranPages({
                     }
                 }}
             >
-                {pages}
+                {Array.from({ length: end - start + 1 }).map((_, index) => {
+                    const num = start + index;
+                    // Determine if the page should be loaded with priority
+                    // Preload current, +/- 3 pages for smooth experience on low-end devices
+                    const shouldBePriority = num >= pageNum - 3 && num <= pageNum + 3;
+                    return (
+                        <SwiperSlide key={`sayfa-${num}`} virtualIndex={index}>
+                            <QuranPage number={num} isPriority={shouldBePriority} />
+                            <div className="swiper-lazy-preloader"></div>
+                        </SwiperSlide>
+                    );
+                })}
             </Swiper >
         </div>
     );
@@ -213,6 +213,86 @@ export function SurahPages({ surah }: { surah: Surah }) {
     return (
         <Suspense>
             <SurahPagesContent surah={surah} />
+        </Suspense>
+    );
+}
+
+function PagePagesContent() {
+    const searchParams = useSearchParams();
+    const pathname = usePathname();
+    const initialPageParam = searchParams.get('sayfa');
+    const initialPage = initialPageParam ? parseInt(initialPageParam) : 0;
+
+    const [currentPageNum, setCurrentPageNum] = useState<number>(initialPage);
+
+    useEffect(() => {
+        const title = `Sayfa ${currentPageNum} - eMushaf.net`;
+        document.title = title;
+
+        // Update meta description
+        const description = `Kur'an-ı Kerim Sayfa ${currentPageNum}. Kuran-ı Kerim'i kolaylıkla telefon, tablet ve bilgisayarınızdan okuyun.`;
+        const metaDesc = document.querySelector('meta[name="description"]');
+        if (metaDesc) {
+            metaDesc.setAttribute("content", description);
+        }
+
+        // Update canonical link
+        let canonical = document.querySelector('link[rel="canonical"]');
+        if (!canonical) {
+            canonical = document.createElement('link');
+            canonical.setAttribute('rel', 'canonical');
+            document.head.appendChild(canonical);
+        }
+        const url = new URL(window.location.href);
+        const canonicalUrl = `${url.origin}${pathname}${currentPageNum !== 0 ? `?sayfa=${currentPageNum}` : ''}`;
+        canonical.setAttribute('href', canonicalUrl);
+
+        // Update rel="prev"
+        let prev = document.querySelector('link[rel="prev"]');
+        if (currentPageNum > 0) {
+            if (!prev) {
+                prev = document.createElement('link');
+                prev.setAttribute('rel', 'prev');
+                document.head.appendChild(prev);
+            }
+            const prevPage = currentPageNum - 1;
+            const prevHref = `${url.origin}${pathname}${prevPage !== 0 ? `?sayfa=${prevPage}` : ''}`;
+            prev.setAttribute('href', prevHref);
+        } else if (prev) {
+            prev.remove();
+        }
+
+        // Update rel="next"
+        let next = document.querySelector('link[rel="next"]');
+        if (currentPageNum < 604) {
+            if (!next) {
+                next = document.createElement('link');
+                next.setAttribute('rel', 'next');
+                document.head.appendChild(next);
+            }
+            const nextPage = currentPageNum + 1;
+            const nextHref = `${url.origin}${pathname}?sayfa=${nextPage}`;
+            next.setAttribute('href', nextHref);
+        } else if (next) {
+            next.remove();
+        }
+    }, [currentPageNum, pathname]);
+
+    const header = <PageHeader pageNum={currentPageNum} />
+
+    return <QuranPages
+        start={0}
+        end={604}
+        header={header}
+        onPageChange={setCurrentPageNum}
+        initialPage={initialPage}
+    />;
+}
+
+export function PagePages() {
+    return (
+        <Suspense>
+            <PagePagesContent />
         </Suspense>
     );
 }

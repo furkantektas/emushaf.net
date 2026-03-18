@@ -128,6 +128,16 @@ export function SurahHeader({ surah, pageNum }: { surah: Surah, pageNum: number 
     return <Header pageNum={pageNum} title={title} />
 }
 
+export function PageHeader({ pageNum }: { pageNum: number }) {
+    const title = (
+        <div className="flex flex-col space-x-2 items-center">
+            <h1 className="font-medium tracking-wide uppercase dark:text-gray-50 text-gray-950">Sayfa {pageNum}</h1>
+        </div>
+    )
+
+    return <Header pageNum={pageNum} title={title} />
+}
+
 export function CuzHeader({ cuz, pageNum }: { cuz: Cuz, pageNum: number }) {
     const title = (
         <div className="flex flex-col space-x-2 items-center">
