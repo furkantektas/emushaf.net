@@ -16,7 +16,7 @@ const fuseOptions = {
 const fuse = new Fuse(Surahs, fuseOptions);
 
 interface SearchResult {
-    type: 'surah' | 'juz';
+    type: 'surah' | 'juz' | 'page';
     value: string | number;
     url: string;
 }
@@ -39,23 +39,56 @@ export default function QuranSearch() {
 
     useEffect(() => {
         if (searchTerm) {
-            const surahResults = fuse.search(searchTerm).slice(0, 5);
             const numericValue = parseInt(searchTerm, 10);
+            const isNumeric = !isNaN(numericValue);
 
-            const newResults: SearchResult[] = [
-                ...surahResults.map(result => ({
-                    type: 'surah' as const,
-                    value: result.item.name,
-                    url: `/sure/${result.item.url}`
-                })),
-                ...(numericValue >= 1 && numericValue <= 30 ? [{
-                    type: 'juz' as const,
-                    value: numericValue,
-                    url: `/cuz/${numericValue}`
-                }] : []),
-            ];
+            const surahResults = fuse.search(searchTerm).slice(0, 5);
 
-            setResults(newResults);
+            const newResults: SearchResult[] = [];
+
+            // Add numeric-based results first if it's a number
+            if (isNumeric) {
+                // Surah by order
+                const surahByOrder = Surahs.find(s => s.order === numericValue);
+                if (surahByOrder) {
+                    newResults.push({
+                        type: 'surah' as const,
+                        value: surahByOrder.name,
+                        url: `/sure/${surahByOrder.url}`
+                    });
+                }
+
+                // Juz
+                if (numericValue >= 1 && numericValue <= 30) {
+                    newResults.push({
+                        type: 'juz' as const,
+                        value: numericValue,
+                        url: `/cuz/${numericValue}`
+                    });
+                }
+
+                // Page
+                if (numericValue >= 0 && numericValue <= 604) {
+                    newResults.push({
+                        type: 'page' as const,
+                        value: numericValue,
+                        url: `/sayfa?sayfa=${numericValue}`
+                    });
+                }
+            }
+
+            // Add fuse search results, filtering out the one we might have already added by order
+            surahResults.forEach(result => {
+                if (!newResults.find(r => r.type === 'surah' && r.url === `/sure/${result.item.url}`)) {
+                    newResults.push({
+                        type: 'surah' as const,
+                        value: result.item.name,
+                        url: `/sure/${result.item.url}`
+                    });
+                }
+            });
+
+            setResults(newResults.slice(0, 6)); // Limit total results
             setSelectedIndex(-1);
         } else {
             setResults([]);
@@ -135,8 +168,9 @@ export default function QuranSearch() {
                                 id={`result-${index}`}
                                 aria-label={`${result.type === 'surah' ? 'Sure' : result.type === 'juz' ? 'Cüz' : 'Sayfa'}: ${result.value}`}
                             >
-                                {result.type === 'surah' && `${result.value}`}
+                                {result.type === 'surah' && `${result.value} Suresi`}
                                 {result.type === 'juz' && `${result.value}. Cüz`}
+                                {result.type === 'page' && `${result.value}. Sayfa`}
                             </button>
                         ))}
                     </div>
