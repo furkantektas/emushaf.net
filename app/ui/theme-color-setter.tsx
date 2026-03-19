@@ -14,8 +14,9 @@ const ThemeColorSetter = () => {
             const indexPageColor = '#fff';
             const darkPageColor = '#000';
             const cleanPath = pathname?.endsWith('/') ? pathname.slice(0, -1) : pathname;
-            const isQuranPage = cleanPath?.startsWith('/sure/') || cleanPath?.startsWith('/cuz/');
+            const isQuranPage = cleanPath?.startsWith('/sure/') || cleanPath?.startsWith('/cuz/') || cleanPath === '/sayfa';
             const lightThemeColor = isQuranPage ? pageColor : indexPageColor;
+            const finalColor = resolvedTheme === 'dark' ? darkPageColor : lightThemeColor;
 
             let themeColorMeta = document.querySelector(
                 'meta[name="theme-color"]'
@@ -27,7 +28,8 @@ const ThemeColorSetter = () => {
                 document.head.appendChild(themeColorMeta);
             }
 
-            themeColorMeta.content = resolvedTheme === 'dark' ? darkPageColor : lightThemeColor;
+            themeColorMeta.content = finalColor;
+            document.body.style.backgroundColor = finalColor;
         };
 
         handleRouteChange(); // Set theme color on initial load
