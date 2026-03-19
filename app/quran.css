@@ -1,6 +1,11 @@
+.sayfa {
+    mix-blend-mode: multiply;
+}
+
 .dark {
     .sayfa {
         filter: invert(1) hue-rotate(-140deg) contrast(0.7);
+        mix-blend-mode: normal;
     }
 }
 
