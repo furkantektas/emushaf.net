@@ -7,9 +7,10 @@ servers:
     - <%= ENV['DEPLOY_HOST'] %>
 proxy:
   hosts:
-    - emushaf.net
-    - www.emushaf.net
-  ssl: true
+<% ENV.fetch('PROXY_HOSTS', 'emushaf.net,www.emushaf.net').split(',').each do |h| %>
+    - <%= h.strip %>
+<% end %>
+  ssl: <%= ENV.fetch('PROXY_SSL', 'true') %>
   forward_headers: true
   healthcheck:
     path: "/"
